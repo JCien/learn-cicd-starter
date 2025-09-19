@@ -14,7 +14,7 @@ func TestGetAPIKey(t *testing.T) {
 		expectedKey   string
 		expectedError string
 	}{
-		"Valid API Key":         {header: http.Header{"Authorization": []string{"ApiKey secret-key-123"}}, expectedKey: "secret-key-1234"},
+		"Valid API Key":         {header: http.Header{"Authorization": []string{"ApiKey secret-key-123"}}, expectedKey: "secret-key-123"},
 		"No Auth Header":        {header: http.Header{}, expectedKey: "", expectedError: "no authorization header included"},
 		"Malformed Auth Header": {header: http.Header{"Authorization": []string{"-"}}, expectedKey: "", expectedError: "malformed authorization header"},
 	}
