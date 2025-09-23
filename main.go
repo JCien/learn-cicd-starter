@@ -36,16 +36,6 @@ func main() {
 		log.Fatal("PORT environment variable is not set")
 	}
 
-	readHeaderTimeoutSTR := os.Getenv("HEADERTIMEOUT")
-	if readHeaderTimeoutSTR == "" {
-		log.Fatal("ReadHeaderTimeout not valid")
-	}
-
-	readHeaderTimeout, err := time.ParseDuration(readHeaderTimeoutSTR)
-	if err != nil {
-		log.Fatal("Problem setting timeout")
-	}
-
 	apiCfg := apiConfig{}
 
 	// https://github.com/libsql/libsql-client-go/#open-a-connection-to-sqld
@@ -102,7 +92,7 @@ func main() {
 	srv := &http.Server{
 		Addr:              ":" + port,
 		Handler:           router,
-		ReadHeaderTimeout: readHeaderTimeout,
+		ReadHeaderTimeout: 5 * time.Second,
 	}
 
 	log.Printf("Serving on port: %s\n", port)
